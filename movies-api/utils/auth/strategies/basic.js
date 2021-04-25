@@ -16,14 +16,14 @@ passport.use(
         return cb(boom.unauthorized(), false);
       }
 
-      if (! await bcrypt.compare(password, user.password)) {
+      if (!await bcrypt.compare(password, user.password)) {
         return cb(boom.unauthorized(), false);
       }
 
       delete user.password;
       cb(null, user);
-    } catch (err) {
-      return cb(err);
+    } catch (error) {
+      return cb(error);
     }
   })
 );
