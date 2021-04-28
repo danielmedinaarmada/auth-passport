@@ -3,6 +3,10 @@ const passport = require('passport');
 const boom = require('@hapi/boom');
 const jwt = require('jsonwebtoken');
 const ApiKeysService = require('../services/apiKeys');
+const UsersService = require('../services/users');
+const validationHandler = require('../utils/middleware/validationHandler');
+
+const { createUserSchema } = require('../utils/schemas/users');
 
 const { config } = require('../config/index');
 
@@ -14,6 +18,8 @@ function authApi(app) {
   app.use('/api/auth', router);
 
   const apiKeysService = new ApiKeysService();
+  const usersService = new UsersService();
+
 
   router.post('/sign-in', async function (req, res, next) {
     const { apiKeyToken } = req.body;
@@ -29,7 +35,7 @@ function authApi(app) {
         }
 
         req.login(user, { session: false }, async function (error) {
-          if (error){
+          if (error) {
             next(error);
           }
 
@@ -48,15 +54,15 @@ function authApi(app) {
             scopes: apiKey.scopes
           };
 
-          const token = jwt.sign( payload, config.authJwtSecret, {
+          const token = jwt.sign(payload, config.authJwtSecret, {
             expiresIn: '15m'
           });
 
           return res.status(200).json({
             token,
             user: {
-              id, 
-              name, 
+              id,
+              name,
               email
             }
           })
@@ -66,6 +72,23 @@ function authApi(app) {
       }
     })(req, res, next);
   });
+
+  router.post('/sing-up', validationHandler(createUserSchema), async function (req, res, next) {
+    const { body: user } = req;
+
+    try {
+      const createdUserId = await usersService.createUser({ user });
+      
+      res.status(201).json({
+        data: createdUserId,
+        message: 'user created'
+      })
+
+    } catch (error) {
+      next(error)
+    }
+  })
+
 }
 
 module.exports = authApi;
