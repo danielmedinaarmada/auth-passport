@@ -6,7 +6,7 @@ const config = {
   apiUrl: process.env.API_URL,
   apiKeyToken: process.env.API_KEY_TOKEN,
   googleClientId: process.env.GOOGLE_CLIENT_ID,
-  googleClienteSecret: process.env.GOOGLE_CLIENTE_SECRET
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET
 };
 
 module.exports = { config: config };

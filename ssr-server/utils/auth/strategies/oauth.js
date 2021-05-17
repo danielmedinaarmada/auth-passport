@@ -13,7 +13,7 @@ const oAuth2Strategy = new OAuth2Strategy({
   authorizationURL: GOOGLE_AUTHORIZATION_URL,
   tokenURL: GOOGLE_TOKEN_URL,
   clientID: config.googleClientId,
-  clientSecrect: config.googleClienteSecret,
+  clientSecrect: config.googleClientSecret,
   callbackURL: "/auth/google-oauth/callback"
 }, async function (accessToken, refreshToken, profile, cb) {
   const { data, status } = await axios({
