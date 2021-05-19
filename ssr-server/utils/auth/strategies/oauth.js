@@ -12,12 +12,12 @@ const GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
 const oAuth2Strategy = new OAuth2Strategy({
   authorizationURL: GOOGLE_AUTHORIZATION_URL,
   tokenURL: GOOGLE_TOKEN_URL,
-  clientID: config.googleClientId,
-  clientSecrect: config.googleClientSecret,
+  clientID: config.googleclientID,
+  clientSecret: config.googleclientSecret,
   callbackURL: "/auth/google-oauth/callback"
 }, async function (accessToken, refreshToken, profile, cb) {
   const { data, status } = await axios({
-    urL: `${config.apiUrl}/api/auth/sign-provider`,
+    url: `${config.apiUrl}/api/auth/sign-provider`,
     method: 'post',
     data: {
       name: profile.name,
@@ -57,3 +57,5 @@ oAuth2Strategy.userProfile = function(accessToken, done){
 }
 
 passport.use("google-oauth", oAuth2Strategy);
+
+console.log("Prueba: ", oAuth2Strategy);
