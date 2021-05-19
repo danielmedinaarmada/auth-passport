@@ -58,4 +58,3 @@ oAuth2Strategy.userProfile = function(accessToken, done){
 
 passport.use("google-oauth", oAuth2Strategy);
 
-console.log("Prueba: ", oAuth2Strategy);
