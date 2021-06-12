@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require('helmet');
 const passport = require("passport");
 const session = require('express-session');
 const boom = require("@hapi/boom");
@@ -15,7 +16,7 @@ app.use(cookieParser());
 app.use(session({ secret: config.sessionSecret })); //twitter session activa. Oauth 1.0
 app.use(passport.initialize()); //twitter session activa. Oauth 1.0
 app.use(passport.session()); //twitter session activa. Oauth 1.0
-
+app.use(helmet());
 
 //  Basic strategy
 require("./utils/auth/strategies/basic");
