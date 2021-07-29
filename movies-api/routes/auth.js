@@ -73,7 +73,7 @@ function authApi(app) {
     })(req, res, next);
   });
 
-  router.post('/sing-up', validationHandler(createUserSchema), async function (req, res, next) {
+  router.post('/sign-up', validationHandler(createUserSchema), async function (req, res, next) {
     const { body: user } = req;
 
     try {
