@@ -34,9 +34,9 @@ function authApi(app) {
           next(boom.unauthorized());
         }
 
-        req.login(user, { session: false }, async function (error) {
-          if (error) {
-            next(error);
+        req.login(user, { session: false }, async function (err) {
+          if (err) {
+            next(err);
           }
 
           const apiKey = await apiKeysService.getApiKey({ token: apiKeyToken });
@@ -67,8 +67,8 @@ function authApi(app) {
             }
           })
         })
-      } catch (error) {
-        next(error);
+      } catch (err) {
+        next(err);
       }
     })(req, res, next);
   });

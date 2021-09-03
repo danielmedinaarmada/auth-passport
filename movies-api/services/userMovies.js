@@ -14,8 +14,7 @@ class UserMoviesService {
   }
 
   async createUserMovie({ userMovie }) {
-    const createdUserMovieId = await this.mongoDB.create(
-      this.collection,
+    const createdUserMovieId = await this.mongoDB.create(this.collection,
       userMovie
     );
 
