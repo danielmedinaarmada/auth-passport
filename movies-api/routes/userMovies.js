@@ -44,11 +44,7 @@ function userMoviesApi(app) {
     passport.authenticate('jwt', { session: false }), 
     scopesValidationHandler(['create:user-movies']),
     validationHandler(createUserMovieSchema),  
-    async function (
-    req,
-    res,
-    next
-  ) {
+    async function ( req, res, next ) {
     const { body: userMovie } = req;
     try {
       const createdUserMovieId = await userMoviesService.createUserMovie({
@@ -70,7 +66,6 @@ function userMoviesApi(app) {
     validationHandler({ userMovieId: userMovieIdSchema }, 'params'),
     async function (req, res, next) {
       const { userMovieId } = req.params;
-
       try {
         const deletedUserMovieId = await userMoviesService.deleteUserMovie({
           userMovieId
